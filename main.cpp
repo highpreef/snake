@@ -8,19 +8,16 @@ using namespace std;
 bool debug = true;
 double delay = 0;
 const int width = 20;
-const int height = 10;
+const int height = 20;
 sDirection dir = IDLE;
 GameFpsController controller = GameFpsController();
-int x, y, fx, fy;
+int x, y, fx, fy, score = 0;
 
 void setup() {
     x = width / 2;
     y = height / 2;
     fx = rand() % width;
     fy = rand() % height;
-
-    fx = 19;
-    fy = 9;
 }
 
 void draw() {
@@ -43,6 +40,7 @@ void draw() {
         printf("Time since last frame: %fms \n", delay);
         printf("\t key pressed: %d \n", dir);
     }   
+    printf("Score: %d \n", score);
 }
 
 void input() {
@@ -64,15 +62,44 @@ void input() {
     }
 }
 
+void update() {
+    if (x == fx && y == fy) {
+        fx = rand() % width;
+        fy = rand() % height;
+        score++;
+    }
+
+    switch (dir) {
+        case UP:
+            y--;
+            break;
+        case DOWN:
+            y++;
+            break;
+        case LEFT:
+            x--;
+            break;
+        case RIGHT:
+            x++;
+            break;
+        default:
+            break;
+    }
+    x = (x + width) % width;
+    y = (y + height) % height;
+}
+
 int main()
 {
 
     setup();
     while (true)
     {
-
-        delay = controller.delay(100); // 10fps
+        delay = controller.delay(200); // 5fps
         draw();
         input();
+        update();
     }
+
+    return 0;
 }
