@@ -5,11 +5,11 @@
 
 using namespace std;
 
-bool debug = true;
+bool debug = false;
 double delay = 0;
 const int width = 20;
 const int height = 20;
-sDirection dir = IDLE;
+sDirection dir = UP;
 GameFpsController controller = GameFpsController();
 int x, y, fx, fy, score = 0;
 
@@ -47,16 +47,24 @@ void input() {
     if (_kbhit()) {
         switch(_getch()) {
             case('w') :
-                dir = UP;
+                if (dir != DOWN) {
+                    dir = UP;
+                }
                 break;
             case('s') :
-                dir = DOWN;
+                if (dir != UP) {
+                    dir = DOWN;
+                }
                 break;
             case('a') :
-                dir = LEFT;
+                if (dir != RIGHT) {
+                    dir = LEFT;
+                }
                 break;
             case('d') :
-                dir = RIGHT;
+                if (dir != LEFT) {
+                    dir = RIGHT;
+                }
                 break;
         }
     }
