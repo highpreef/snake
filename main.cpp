@@ -28,7 +28,7 @@ void draw() {
             bool found = false;
             for (int k = 0; k < snake.length; k++) {
                 if (i-1 == snake.body[k].y && j-1 == snake.body[k].x) {
-                    cout << "*";
+                    printf("*");
                     found = true;
                 }
             }
@@ -36,11 +36,11 @@ void draw() {
                 continue;
             }
             if (i == 0 || i == height+1 || j == 0 || j == width +1) {
-                cout << "#";
+                printf("#");
             } else if (i-1 == food.y && j-1 == food.x) {
-                cout << "%";
+                printf("%%");
             } else {
-                cout << " ";
+                printf(" ");
             }
         }
         cout << endl;
@@ -81,6 +81,15 @@ void input() {
     }
 }
 
+void gameOver() {
+    system("cls");
+    printf("Game over! \n");
+    printf("Score: %d \n", score);
+    printf("Press any key to exit...");
+    _getch();
+    exit(0);
+}
+
 void update() {
     if (snake.getX() == food.x && snake.getY() == food.y) {
         food.randomize(width, height);
@@ -105,6 +114,9 @@ void update() {
             break;
     }
     snake.propagate();
+    if (snake.checkCollision()) {
+        gameOver();
+    }
 }
 
 int main()
