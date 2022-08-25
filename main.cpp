@@ -2,33 +2,42 @@
 #include<conio.h>
 #include "GameFpsController.h"
 #include "Utils.h"
+#include "Point.h"
+#include "Snake.h"
 
 using namespace std;
 
-bool debug = false;
+bool debug = true;
 double delay = 0;
-const int width = 20;
-const int height = 20;
+int width = 20;
+int height = 20;
 sDirection dir = UP;
 GameFpsController controller = GameFpsController();
-int x, y, fx, fy, score = 0;
+int score = 0;
+Point food = Point();
+Snake snake = Snake(width, height);
 
 void setup() {
-    x = width / 2;
-    y = height / 2;
-    fx = rand() % width;
-    fy = rand() % height;
+    food.randomize(width, height);
 }
 
 void draw() {
     system("cls");
     for (int i = 0; i < height+2; i++) {
         for (int j = 0; j < width+2; j++) {
+            bool found = false;
+            for (int k = 0; k < snake.length; k++) {
+                if (i-1 == snake.body[k].y && j-1 == snake.body[k].x) {
+                    cout << "*";
+                    found = true;
+                }
+            }
+            if (found) {
+                continue;
+            }
             if (i == 0 || i == height+1 || j == 0 || j == width +1) {
                 cout << "#";
-            } else if (i-1 == y && j-1 == x) {
-                cout << "*";
-            } else if (i-1 == fy && j-1 == fx) {
+            } else if (i-1 == food.y && j-1 == food.x) {
                 cout << "%";
             } else {
                 cout << " ";
@@ -39,6 +48,8 @@ void draw() {
     if (debug) {
         printf("Time since last frame: %fms \n", delay);
         printf("\t key pressed: %d \n", dir);
+        printf("pos 1: %d, %d \n", snake.body[0].x, snake.body[0].y);
+        printf("snake pos: %d, %d \n", snake.pos.x, snake.pos.y);
     }   
     printf("Score: %d \n", score);
 }
@@ -71,30 +82,29 @@ void input() {
 }
 
 void update() {
-    if (x == fx && y == fy) {
-        fx = rand() % width;
-        fy = rand() % height;
+    if (snake.getX() == food.x && snake.getY() == food.y) {
+        food.randomize(width, height);
         score++;
+        snake.length++;
     }
 
     switch (dir) {
         case UP:
-            y--;
+            snake.setY(snake.getY()-1);
             break;
         case DOWN:
-            y++;
+            snake.setY(snake.getY()+1);
             break;
         case LEFT:
-            x--;
+            snake.setX(snake.getX()-1);
             break;
         case RIGHT:
-            x++;
+            snake.setX(snake.getX()+1);
             break;
         default:
             break;
     }
-    x = (x + width) % width;
-    y = (y + height) % height;
+    snake.propagate();
 }
 
 int main()
