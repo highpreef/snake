@@ -1,18 +1,22 @@
-//GameFpsController.hpp
-#ifndef GAMEFPSCONTROLLER_H
-#define GAMEFPSCONTROLLER_H
+//
+// Created by DAVID on 06/09/2022.
+// (based on https://stackoverflow.com/questions/38730273/how-to-limit-fps-in-a-loop-with-c)
+//
+
+#ifndef SNAKE_GAMEFPSCONTROLLER_H
+#define SNAKE_GAMEFPSCONTROLLER_H
 
 #include <chrono>
 #include <thread>
 
 class GameFpsController {
-    private:
-        std::chrono::system_clock::time_point a;
-        std::chrono::system_clock::time_point b;
-    public:
-        GameFpsController();
+private:
+    std::chrono::system_clock::time_point a;
+    std::chrono::system_clock::time_point b;
+public:
+    GameFpsController();
 
-        double delay(double milliPerFrame);
+    double delay(double milliPerFrame);
 };
 
 GameFpsController::GameFpsController() {
@@ -37,4 +41,4 @@ double GameFpsController::delay(double milliPerFrame) {
     return (work_time + sleep_time).count();
 }
 
-#endif
+#endif //SNAKE_GAMEFPSCONTROLLER_H

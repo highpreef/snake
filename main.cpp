@@ -1,7 +1,10 @@
+//
+// Created by DAVID on 06/09/2022.
+//
 #include<iostream>
 #include<conio.h>
 #include "GameFpsController.h"
-#include "Utils.h"
+#include "Direction.h"
 #include "Point.h"
 #include "Snake.h"
 
@@ -11,7 +14,7 @@ bool debug = true;
 double delay = 0;
 int width = 20;
 int height = 20;
-sDirection dir = UP;
+Direction dir = UP;
 GameFpsController controller = GameFpsController();
 int score = 0;
 Point food = Point();
@@ -50,7 +53,7 @@ void draw() {
         printf("\t key pressed: %d \n", dir);
         printf("pos 1: %d, %d \n", snake.body[0].x, snake.body[0].y);
         printf("snake pos: %d, %d \n", snake.pos.x, snake.pos.y);
-    }   
+    }
     printf("Score: %d \n", score);
 }
 
@@ -125,7 +128,7 @@ int main()
     setup();
     while (true)
     {
-        delay = controller.delay(200); // 5fps
+        delay = controller.delay(1000.0/2); // 2fps
         draw();
         input();
         update();

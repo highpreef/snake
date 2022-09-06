@@ -1,5 +1,9 @@
-#ifndef POINT_H
-#define POINT_H
+//
+// Created by DAVID on 06/09/2022.
+//
+
+#ifndef SNAKE_POINT_H
+#define SNAKE_POINT_H
 
 #include <iostream>
 
@@ -29,4 +33,4 @@ void Point::randomize(int xlim, int ylim) {
     this->y = rand() % ylim;
 }
 
-#endif
+#endif //SNAKE_POINT_H

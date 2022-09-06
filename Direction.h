@@ -1,5 +1,5 @@
-enum sDirection {
-    IDLE = 0,
+enum Direction {
+    IDLE=0,
     UP,
     DOWN,
     LEFT,

@@ -1,27 +1,31 @@
-#ifndef SNAKE_H
-#define SNAKE_H
+//
+// Created by DAVID on 06/09/2022.
+//
+
+#ifndef SNAKE_SNAKE_H
+#define SNAKE_SNAKE_H
 
 #include "Point.h"
 #include <vector>
 class Snake {
-    public:
-        Point pos;
-        int width;
-        int height;
-        int length;
-        Point* body;
+public:
+    Point pos;
+    int width;
+    int height;
+    int length;
+    Point* body;
 
-        Snake(int width, int height);
-        ~Snake();
+    Snake(int width, int height);
+    ~Snake();
 
-        void propagate();
-        bool checkCollision();
+    void propagate() const;
+    bool checkCollision() const;
 
-        int getY();
-        int getX();
+    int getY() const;
+    int getX() const;
 
-        void setY(int y);
-        void setX(int x);
+    void setY(int y);
+    void setX(int x);
 };
 
 Snake::Snake(int width, int height) {
@@ -39,7 +43,7 @@ Snake::~Snake() {
     delete[] body;
 }
 
-void Snake::propagate() {
+void Snake::propagate() const {
     for (int i = length - 1; i > 0; i--) {
         body[i].x = body[i - 1].x;
         body[i].y = body[i - 1].y;
@@ -48,7 +52,7 @@ void Snake::propagate() {
     body[0].y = pos.y;
 }
 
-bool Snake::checkCollision() {
+bool Snake::checkCollision() const {
     if (pos.x < 0 || pos.x >= width || pos.y < 0 || pos.y >= height) {
         return true;
     }
@@ -60,11 +64,11 @@ bool Snake::checkCollision() {
     return false;
 }
 
-int Snake::getY() {
+int Snake::getY() const {
     return this->pos.y;
 }
 
-int Snake::getX() {
+int Snake::getX() const {
     return this->pos.x;
 }
 
@@ -76,4 +80,4 @@ void Snake::setX(int x) {
     this->pos.x = x;
 }
 
-#endif
+#endif //SNAKE_SNAKE_H

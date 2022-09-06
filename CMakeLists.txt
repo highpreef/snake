@@ -3,4 +3,4 @@ project(snake)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(snake main.cpp GameFpsController.h Point.h Snake.h Utils.h)
+add_executable(snake main.cpp GameFpsController.h Point.h Snake.h Direction.h GameFpsController.h main.cpp Point.h Snake.h)
